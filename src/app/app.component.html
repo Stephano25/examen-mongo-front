@@ -1,18 +1,26 @@
-<h1>📋 Todo List</h1>
+<mat-card>
+  <h1>📋 Todo List</h1>
+  <div>
+    <mat-select placeholder="Filtrer par statut" [(value)]="filter" (selectionChange)="setFilter(filter)">
+      <mat-option value="">Toutes</mat-option>
+      <mat-option value="EN_COURS">En cours</mat-option>
+      <mat-option value="TERMINEE">Terminées</mat-option>
+    </mat-select>
+    <button mat-button color="primary" (click)="sortByName()">Trier par nom</button>
+  </div>
+</mat-card>
 
-<div *ngIf="tasks.length === 0">
+<div *ngIf="tasks.length === 0" class="no-task">
   Aucune tâche pour le moment.
 </div>
 
-<ul>
-  <li *ngFor="let task of tasks">
-    <b>{{ task.title }}</b>
-    — {{ task.status }}
-
-    <button
-      *ngIf="task.status === 'EN_COURS'"
-      (click)="finish(task._id!)">
-      Terminer
-    </button>
-  </li>
-</ul>
+<mat-card *ngFor="let task of tasks" class="task-card">
+  <div class="task-header">
+    <h3>{{ task.title }}</h3>
+    <span [ngClass]="task.status === 'TERMINEE' ? 'done' : 'pending'">{{ task.status }}</span>
+  </div>
+  <p>{{ task.description }}</p>
+  <button mat-raised-button color="accent" *ngIf="task.status==='EN_COURS'" (click)="finish(task._id!)">
+    Terminer
+  </button>
+</mat-card>
