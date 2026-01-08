@@ -3,7 +3,5 @@ import { provideHttpClient } from '@angular/common/http';
 import { AppComponent } from './app/app.component';
 
 bootstrapApplication(AppComponent, {
-  providers: [
-    provideHttpClient()
-  ]
+  providers: [provideHttpClient()]
 }).catch(err => console.error(err));
