@@ -35,53 +35,63 @@ export class AppComponent {
   }
 
   // 🔄 Chargement
-  load() {
-    this.service.getTasks(this.filter, this.sort).subscribe((res: Task[]) => {
-      this.tasks = res;
+  load(): void {
+    this.service.getTasks(this.filter, this.sort).subscribe({
+      next: (res: Task[]) => this.tasks = res,
+      error: err => console.error('Erreur lors du chargement des tâches', err)
     });
   }
 
   // ✅ Statistiques
-  get total() {
+  get total(): number {
     return this.tasks.length;
   }
 
-  get done() {
+  get done(): number {
     return this.tasks.filter(t => t.status === 'TERMINEE').length;
   }
 
-  get progress() {
+  get progress(): number {
     return this.tasks.filter(t => t.status === 'EN_COURS').length;
   }
 
   // ➕ Ajouter
-  addTask() {
-    if (!this.newTask.title) return;
+  addTask(): void {
+    if (!this.newTask.title.trim()) return;
 
-    this.service.add(this.newTask).subscribe(() => {
-      this.newTask = { title: '', description: '', status: 'EN_COURS' };
-      this.load();
+    this.service.add(this.newTask).subscribe({
+      next: () => {
+        this.newTask = { title: '', description: '', status: 'EN_COURS' };
+        this.load();
+      },
+      error: err => console.error('Erreur lors de l’ajout', err)
     });
   }
 
   // ✔ Terminer
-  finish(id: string) {
-    this.service.finish(id).subscribe(() => this.load());
+  finish(id: string): void {
+    this.service.finish(id).subscribe({
+      next: () => this.load(),
+      error: err => console.error('Erreur lors de la finalisation', err)
+    });
   }
 
   // ❌ Supprimer
-  deleteTask(id: string) {
-    this.service.delete(id).subscribe(() => this.load());
+  deleteTask(id: string): void {
+    this.service.delete(id).subscribe({
+      next: () => this.load(),
+      error: err => console.error('Erreur lors de la suppression', err)
+    });
   }
 
-  // 🔍 Filtre
-  setFilter(status: string) {
+   // 🔍 Filtre
+  setFilter(status: string): void {
     this.filter = status;
     this.load();
   }
 
   // 🔠 Tri
-  sortByName() {
+  sortByName(): void {
     this.sort = 'title';
     this.load();
   }

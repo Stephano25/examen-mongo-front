@@ -1,161 +1,102 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Task Manager Pro</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-  <div class="container">
-    <!-- Header -->
-    <div class="header">
-      <h1>✨ Task Manager Pro</h1>
-      <p>Gérez vos tâches avec style et efficacité</p>
-    </div>
-
-    <!-- 📊 Statistiques -->
-    <div class="stats">
-      <div class="stat-card">
-        <div class="stat-icon total">
-          <span class="material-icons">dashboard</span>
-        </div>
-        <div class="stat-content">
-          <h3>Total</h3>
-          <div class="number">12</div>
-        </div>
-      </div>
-
-      <div class="stat-card">
-        <div class="stat-icon progress">
-          <span class="material-icons">schedule</span>
-        </div>
-        <div class="stat-content">
-          <h3>En cours</h3>
-          <div class="number">7</div>
-        </div>
-      </div>
-
-      <div class="stat-card">
-        <div class="stat-icon done">
-          <span class="material-icons">check_circle</span>
-        </div>
-        <div class="stat-content">
-          <h3>Terminées</h3>
-          <div class="number">5</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- 🔍 Filtre & tri -->
-    <div class="toolbar">
-      <div class="select-wrapper">
-        <select>
-          <option value="">Toutes les tâches</option>
-          <option value="EN_COURS">En cours</option>
-          <option value="TERMINEE">Terminées</option>
-        </select>
-      </div>
-
-      <button class="btn btn-primary">
-        <span class="material-icons" style="font-size: 1.25rem;">sort_by_alpha</span>
-        Trier par nom
-      </button>
-    </div>
-
-    <!-- ➕ Ajouter tâche -->
-    <div class="add-card">
-      <h2>
-        <span class="material-icons">add_circle</span>
-        Ajouter une nouvelle tâche
-      </h2>
-      <div class="input-group">
-        <input type="text" placeholder="Titre de la tâche">
-        <input type="text" placeholder="Description détaillée">
-      </div>
-      <button class="btn btn-accent">
-        <span class="material-icons" style="font-size: 1.25rem;">add</span>
-        Ajouter la tâche
-      </button>
-    </div>
-
-    <!-- 📋 Liste des tâches -->
-    <div class="tasks-grid">
-      <!-- Tâche en cours -->
-      <div class="task-card">
-        <div class="task-header">
-          <h3>Développer l'interface utilisateur</h3>
-          <span class="status-badge pending">En cours</span>
-        </div>
-        <p>Créer une interface moderne et responsive avec Angular Material pour améliorer l'expérience utilisateur.</p>
-        <div class="actions">
-          <button class="btn-small btn-success">
-            <span class="material-icons" style="font-size: 1rem;">check</span>
-            Terminer
-          </button>
-          <button class="btn-small btn-danger">
-            <span class="material-icons" style="font-size: 1rem;">delete</span>
-            Supprimer
-          </button>
-        </div>
-      </div>
-
-      <!-- Tâche terminée -->
-      <div class="task-card">
-        <div class="task-header">
-          <h3>Configurer la base de données</h3>
-          <span class="status-badge done">Terminée</span>
-        </div>
-        <p>Mise en place de MongoDB et configuration des collections pour stocker les données de l'application.</p>
-        <div class="actions">
-          <button class="btn-small btn-danger">
-            <span class="material-icons" style="font-size: 1rem;">delete</span>
-            Supprimer
-          </button>
-        </div>
-      </div>
-
-      <!-- Tâche en cours -->
-      <div class="task-card">
-        <div class="task-header">
-          <h3>Implémenter l'API REST</h3>
-          <span class="status-badge pending">En cours</span>
-        </div>
-        <p>Développement des endpoints REST pour les opérations CRUD sur les tâches avec Express.js.</p>
-        <div class="actions">
-          <button class="btn-small btn-success">
-            <span class="material-icons" style="font-size: 1rem;">check</span>
-            Terminer
-          </button>
-          <button class="btn-small btn-danger">
-            <span class="material-icons" style="font-size: 1rem;">delete</span>
-            Supprimer
-          </button>
-        </div>
-      </div>
-
-      <!-- Tâche terminée -->
-      <div class="task-card">
-        <div class="task-header">
-          <h3>Authentification utilisateur</h3>
-          <span class="status-badge done">Terminée</span>
-        </div>
-        <p>Mise en place du système d'authentification JWT avec bcrypt pour sécuriser l'accès à l'application.</p>
-        <div class="actions">
-          <button class="btn-small btn-danger">
-            <span class="material-icons" style="font-size: 1rem;">delete</span>
-            Supprimer
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <!-- Message si aucune tâche (commenté pour la démo) -->
-    <!-- <div class="no-task">
-      Aucune tâche pour le moment
-    </div> -->
+<div class="container">
+  <!-- Header -->
+  <div class="header">
+    <h1>✨ Task Manager Pro</h1>
+    <p>Gérez vos tâches avec style et efficacité</p>
   </div>
-</body>
-</html>
+
+  <!-- 📊 Statistiques -->
+  <div class="stats">
+    <div class="stat-card">
+      <div class="stat-icon total">
+        <span class="material-icons">dashboard</span>
+      </div>
+      <div class="stat-content">
+        <h3>Total</h3>
+        <div class="number">{{ total }}</div>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon progress">
+        <span class="material-icons">schedule</span>
+      </div>
+      <div class="stat-content">
+        <h3>En cours</h3>
+        <div class="number">{{ progress }}</div>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon done">
+        <span class="material-icons">check_circle</span>
+      </div>
+      <div class="stat-content">
+        <h3>Terminées</h3>
+        <div class="number">{{ done }}</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 🔍 Filtre & tri -->
+  <div class="toolbar">
+    <div class="select-wrapper">
+      <select [(ngModel)]="filter" (change)="setFilter(filter)">
+        <option value="">Toutes les tâches</option>
+        <option value="EN_COURS">En cours</option>
+        <option value="TERMINEE">Terminées</option>
+      </select>
+    </div>
+
+    <button class="btn btn-primary" (click)="sortByName()">
+      <span class="material-icons" style="font-size: 1.25rem;">sort_by_alpha</span>
+      Trier par nom
+    </button>
+  </div>
+
+  <!-- ➕ Ajouter tâche -->
+  <div class="add-card">
+    <h2>
+      <span class="material-icons">add_circle</span>
+      Ajouter une nouvelle tâche
+    </h2>
+    <div class="input-group">
+      <input type="text" [(ngModel)]="newTask.title" placeholder="Titre de la tâche">
+      <input type="text" [(ngModel)]="newTask.description" placeholder="Description détaillée">
+    </div>
+    <button class="btn btn-accent" (click)="addTask()">
+      <span class="material-icons" style="font-size: 1.25rem;">add</span>
+      Ajouter la tâche
+    </button>
+  </div>
+
+   <!-- 📋 Liste des tâches -->
+  <div class="tasks-grid">
+    <div class="task-card" *ngFor="let task of tasks">
+      <div class="task-header">
+        <h3>{{ task.title }}</h3>
+        <span class="status-badge" [ngClass]="task.status === 'TERMINEE' ? 'done' : 'pending'">
+          {{ task.status === 'TERMINEE' ? 'Terminée' : 'En cours' }}
+        </span>
+      </div>
+      <p>{{ task.description }}</p>
+      <div class="actions">
+        <button *ngIf="task.status === 'EN_COURS'" 
+                class="btn-small btn-success" 
+                (click)="finish(task._id)">
+          <span class="material-icons" style="font-size: 1rem;">check</span>
+          Terminer
+        </button>
+        <button class="btn-small btn-danger" (click)="deleteTask(task._id)">
+          <span class="material-icons" style="font-size: 1rem;">delete</span>
+          Supprimer
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Message si aucune tâche -->
+  <div class="no-task" *ngIf="tasks.length === 0">
+    Aucune tâche pour le moment
+  </div>
+</div>

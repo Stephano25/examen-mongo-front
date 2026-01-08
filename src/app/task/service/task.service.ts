@@ -1,27 +1,31 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { Task } from '../model/task.model';
-
 
 @Injectable({ providedIn: 'root' })
 export class TaskService {
-    api = 'http://localhost:3000/tasks';
+  private api = 'http://localhost:3000/tasks';
 
-    constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {}
 
-    getTasks(status?: string, sort?: string) {
-        return this.http.get<Task[]>(`${this.api}?status=${status || ''}&sort=${sort || ''}`);
-    }
+  // 🔄 Récupérer les tâches avec filtre et tri
+  getTasks(status?: string, sort?: string): Observable<Task[]> {
+    return this.http.get<Task[]>(`${this.api}?status=${status || ''}&sort=${sort || ''}`);
+  }
 
-    add(task: Task) {
-        return this.http.post(this.api, task);
-    }
+  // ➕ Ajouter une tâche
+  add(task: Task): Observable<Task> {
+    return this.http.post<Task>(this.api, task);
+  }
 
-    finish(id: string) {
-        return this.http.patch(`${this.api}/${id}/finish`, {});
-    }
+  // ✔ Terminer une tâche
+  finish(id: string): Observable<Task> {
+    return this.http.patch<Task>(`${this.api}/${id}/finish`, {});
+  }
 
-    delete(id: string) {
-        return this.http.delete(`${this.api}/${id}`);
-    }
+  // ❌ Supprimer une tâche
+  delete(id: string): Observable<void> {
+    return this.http.delete<void>(`${this.api}/${id}`);
+  }
 }
