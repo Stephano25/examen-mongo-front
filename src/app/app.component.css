@@ -30,3 +30,63 @@ mat-card {
   font-size: 18px;
   margin-top: 20px;
 }
+.stats {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.stats mat-card {
+  flex: 1;
+  text-align: center;
+  font-weight: bold;
+}
+
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.add-card {
+  margin-bottom: 20px;
+}
+
+.add-card input {
+  display: block;
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 8px;
+}
+
+.task-card {
+  margin-bottom: 12px;
+}
+
+.task-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.done {
+  color: green;
+  font-weight: bold;
+}
+
+.pending {
+  color: orange;
+  font-weight: bold;
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+}
+
+.no-task {
+  text-align: center;
+  font-size: 18px;
+  margin-top: 20px;
+}

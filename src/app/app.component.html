@@ -1,26 +1,60 @@
-<mat-card>
-  <h1>📋 Todo List</h1>
-  <div>
-    <mat-select placeholder="Filtrer par statut" [(value)]="filter" (selectionChange)="setFilter(filter)">
-      <mat-option value="">Toutes</mat-option>
-      <mat-option value="EN_COURS">En cours</mat-option>
-      <mat-option value="TERMINEE">Terminées</mat-option>
-    </mat-select>
-    <button mat-button color="primary" (click)="sortByName()">Trier par nom</button>
-  </div>
+<!-- 📊 Statistiques -->
+<div class="stats">
+  <mat-card>Total : {{ total }}</mat-card>
+  <mat-card>En cours : {{ progress }}</mat-card>
+  <mat-card>Terminées : {{ done }}</mat-card>
+</div>
+
+<!-- 🔍 Filtre & tri -->
+<mat-card class="toolbar">
+  <mat-select
+    placeholder="Filtrer par statut"
+    [(value)]="filter"
+    (selectionChange)="setFilter(filter)">
+    <mat-option value="">Toutes</mat-option>
+    <mat-option value="EN_COURS">En cours</mat-option>
+    <mat-option value="TERMINEE">Terminées</mat-option>
+  </mat-select>
+
+  <button mat-raised-button color="primary" (click)="sortByName()">
+    Trier par nom
+  </button>
 </mat-card>
 
+<!-- ➕ Ajouter tâche -->
+<mat-card class="add-card">
+  <h2>➕ Ajouter une tâche</h2>
+  <input placeholder="Titre" [(ngModel)]="newTask.title">
+  <input placeholder="Description" [(ngModel)]="newTask.description">
+  <button mat-raised-button color="accent" (click)="addTask()">Ajouter</button>
+</mat-card>
+
+<!-- 📋 Liste des tâches -->
 <div *ngIf="tasks.length === 0" class="no-task">
-  Aucune tâche pour le moment.
+  Aucune tâche pour le moment
 </div>
 
 <mat-card *ngFor="let task of tasks" class="task-card">
   <div class="task-header">
     <h3>{{ task.title }}</h3>
-    <span [ngClass]="task.status === 'TERMINEE' ? 'done' : 'pending'">{{ task.status }}</span>
+    <span [class.done]="task.status==='TERMINEE'"
+          [class.pending]="task.status==='EN_COURS'">
+      {{ task.status }}
+    </span>
   </div>
+
   <p>{{ task.description }}</p>
-  <button mat-raised-button color="accent" *ngIf="task.status==='EN_COURS'" (click)="finish(task._id!)">
-    Terminer
-  </button>
+
+  <div class="actions">
+    <button mat-button color="primary"
+            *ngIf="task.status==='EN_COURS'"
+            (click)="finish(task._id!)">
+      Terminer
+    </button>
+
+    <button mat-button color="warn"
+            (click)="deleteTask(task._id!)">
+      Supprimer
+    </button>
+  </div>
 </mat-card>
