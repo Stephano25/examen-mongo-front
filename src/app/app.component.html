@@ -1,60 +1,161 @@
-<!-- 📊 Statistiques -->
-<div class="stats">
-  <mat-card>Total : {{ total }}</mat-card>
-  <mat-card>En cours : {{ progress }}</mat-card>
-  <mat-card>Terminées : {{ done }}</mat-card>
-</div>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Task Manager Pro</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <div class="header">
+      <h1>✨ Task Manager Pro</h1>
+      <p>Gérez vos tâches avec style et efficacité</p>
+    </div>
 
-<!-- 🔍 Filtre & tri -->
-<mat-card class="toolbar">
-  <mat-select
-    placeholder="Filtrer par statut"
-    [(value)]="filter"
-    (selectionChange)="setFilter(filter)">
-    <mat-option value="">Toutes</mat-option>
-    <mat-option value="EN_COURS">En cours</mat-option>
-    <mat-option value="TERMINEE">Terminées</mat-option>
-  </mat-select>
+    <!-- 📊 Statistiques -->
+    <div class="stats">
+      <div class="stat-card">
+        <div class="stat-icon total">
+          <span class="material-icons">dashboard</span>
+        </div>
+        <div class="stat-content">
+          <h3>Total</h3>
+          <div class="number">12</div>
+        </div>
+      </div>
 
-  <button mat-raised-button color="primary" (click)="sortByName()">
-    Trier par nom
-  </button>
-</mat-card>
+      <div class="stat-card">
+        <div class="stat-icon progress">
+          <span class="material-icons">schedule</span>
+        </div>
+        <div class="stat-content">
+          <h3>En cours</h3>
+          <div class="number">7</div>
+        </div>
+      </div>
 
-<!-- ➕ Ajouter tâche -->
-<mat-card class="add-card">
-  <h2>➕ Ajouter une tâche</h2>
-  <input placeholder="Titre" [(ngModel)]="newTask.title">
-  <input placeholder="Description" [(ngModel)]="newTask.description">
-  <button mat-raised-button color="accent" (click)="addTask()">Ajouter</button>
-</mat-card>
+      <div class="stat-card">
+        <div class="stat-icon done">
+          <span class="material-icons">check_circle</span>
+        </div>
+        <div class="stat-content">
+          <h3>Terminées</h3>
+          <div class="number">5</div>
+        </div>
+      </div>
+    </div>
 
-<!-- 📋 Liste des tâches -->
-<div *ngIf="tasks.length === 0" class="no-task">
-  Aucune tâche pour le moment
-</div>
+    <!-- 🔍 Filtre & tri -->
+    <div class="toolbar">
+      <div class="select-wrapper">
+        <select>
+          <option value="">Toutes les tâches</option>
+          <option value="EN_COURS">En cours</option>
+          <option value="TERMINEE">Terminées</option>
+        </select>
+      </div>
 
-<mat-card *ngFor="let task of tasks" class="task-card">
-  <div class="task-header">
-    <h3>{{ task.title }}</h3>
-    <span [class.done]="task.status==='TERMINEE'"
-          [class.pending]="task.status==='EN_COURS'">
-      {{ task.status }}
-    </span>
+      <button class="btn btn-primary">
+        <span class="material-icons" style="font-size: 1.25rem;">sort_by_alpha</span>
+        Trier par nom
+      </button>
+    </div>
+
+    <!-- ➕ Ajouter tâche -->
+    <div class="add-card">
+      <h2>
+        <span class="material-icons">add_circle</span>
+        Ajouter une nouvelle tâche
+      </h2>
+      <div class="input-group">
+        <input type="text" placeholder="Titre de la tâche">
+        <input type="text" placeholder="Description détaillée">
+      </div>
+      <button class="btn btn-accent">
+        <span class="material-icons" style="font-size: 1.25rem;">add</span>
+        Ajouter la tâche
+      </button>
+    </div>
+
+    <!-- 📋 Liste des tâches -->
+    <div class="tasks-grid">
+      <!-- Tâche en cours -->
+      <div class="task-card">
+        <div class="task-header">
+          <h3>Développer l'interface utilisateur</h3>
+          <span class="status-badge pending">En cours</span>
+        </div>
+        <p>Créer une interface moderne et responsive avec Angular Material pour améliorer l'expérience utilisateur.</p>
+        <div class="actions">
+          <button class="btn-small btn-success">
+            <span class="material-icons" style="font-size: 1rem;">check</span>
+            Terminer
+          </button>
+          <button class="btn-small btn-danger">
+            <span class="material-icons" style="font-size: 1rem;">delete</span>
+            Supprimer
+          </button>
+        </div>
+      </div>
+
+      <!-- Tâche terminée -->
+      <div class="task-card">
+        <div class="task-header">
+          <h3>Configurer la base de données</h3>
+          <span class="status-badge done">Terminée</span>
+        </div>
+        <p>Mise en place de MongoDB et configuration des collections pour stocker les données de l'application.</p>
+        <div class="actions">
+          <button class="btn-small btn-danger">
+            <span class="material-icons" style="font-size: 1rem;">delete</span>
+            Supprimer
+          </button>
+        </div>
+      </div>
+
+      <!-- Tâche en cours -->
+      <div class="task-card">
+        <div class="task-header">
+          <h3>Implémenter l'API REST</h3>
+          <span class="status-badge pending">En cours</span>
+        </div>
+        <p>Développement des endpoints REST pour les opérations CRUD sur les tâches avec Express.js.</p>
+        <div class="actions">
+          <button class="btn-small btn-success">
+            <span class="material-icons" style="font-size: 1rem;">check</span>
+            Terminer
+          </button>
+          <button class="btn-small btn-danger">
+            <span class="material-icons" style="font-size: 1rem;">delete</span>
+            Supprimer
+          </button>
+        </div>
+      </div>
+
+      <!-- Tâche terminée -->
+      <div class="task-card">
+        <div class="task-header">
+          <h3>Authentification utilisateur</h3>
+          <span class="status-badge done">Terminée</span>
+        </div>
+        <p>Mise en place du système d'authentification JWT avec bcrypt pour sécuriser l'accès à l'application.</p>
+        <div class="actions">
+          <button class="btn-small btn-danger">
+            <span class="material-icons" style="font-size: 1rem;">delete</span>
+            Supprimer
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Message si aucune tâche (commenté pour la démo) -->
+    <!-- <div class="no-task">
+      Aucune tâche pour le moment
+    </div> -->
   </div>
-
-  <p>{{ task.description }}</p>
-
-  <div class="actions">
-    <button mat-button color="primary"
-            *ngIf="task.status==='EN_COURS'"
-            (click)="finish(task._id!)">
-      Terminer
-    </button>
-
-    <button mat-button color="warn"
-            (click)="deleteTask(task._id!)">
-      Supprimer
-    </button>
-  </div>
-</mat-card>
+</body>
+</html>
